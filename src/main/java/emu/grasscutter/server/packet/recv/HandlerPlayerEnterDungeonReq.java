@@ -17,7 +17,7 @@ public class HandlerPlayerEnterDungeonReq extends PacketHandler {
                 session
                         .getServer()
                         .getDungeonSystem()
-                        .enterDungeon(session.getPlayer(), req.getPointId(), req.getDungeonId(), true);
+                        .enterDungeon(session.getPlayer(), req.getPointId(), req.getDungeonId());
         session
                 .getPlayer()
                 .sendPacket(new PacketPlayerEnterDungeonRsp(req.getPointId(), req.getDungeonId(), success));

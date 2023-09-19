@@ -80,7 +80,7 @@ public class TrialAvatarActivityHandler extends ActivityHandler {
         if (!player
                 .getServer()
                 .getDungeonSystem()
-                .enterDungeon(player, enterPointId, getTrialActivityDungeonId(trialAvatarIndexId), true))
+                .enterDungeon(player, enterPointId, getTrialActivityDungeonId(trialAvatarIndexId)))
             return false;
 
         setSelectedTrialAvatarIndex(trialAvatarIndexId);
