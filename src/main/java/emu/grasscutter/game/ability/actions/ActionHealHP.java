@@ -73,8 +73,8 @@ public final class ActionHealHP extends AbilityActionHandler {
 
         if (!action.ignoreAbilityProperty)
             abilityRatio +=
-                    target.getFightProperty(FightProperty.FIGHT_PROP_HEAL_ADD)
-                            + target.getFightProperty(FightProperty.FIGHT_PROP_HEALED_ADD);
+                target.getFightProperty(FightProperty.FIGHT_PROP_HEAL_ADD)
+                    + owner.getFightProperty(FightProperty.FIGHT_PROP_HEAL_ADD);
 
         Grasscutter.getLogger().trace("abilityRatio: " + abilityRatio);
 
