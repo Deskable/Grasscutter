@@ -35,11 +35,16 @@ public final class ActionHealHP extends AbilityActionHandler {
                 .getAbilitySpecials()
                 .forEach((k, v) -> Grasscutter.getLogger().trace(">>> {}: {}", k, v));
 
-        var amountByCasterMaxHPRatio = action.amountByCasterMaxHPRatio.get(ability);
-        var amountByCasterAttackRatio = action.amountByCasterAttackRatio.get(ability);
-        var amountByCasterCurrentHPRatio = action.amountByCasterCurrentHPRatio.get(ability);
-        var amountByTargetCurrentHPRatio = action.amountByTargetCurrentHPRatio.get(ability);
-        var amountByTargetMaxHPRatio = action.amountByTargetMaxHPRatio.get(ability);
+        // Calculate ratios from properties.
+                Object2FloatMap<String> props = ability.getAbilitySpecials();
+        props.put("FIGHT_PROP_CUR_DEFENSE",owner.getFightProperty(FightProperty.FIGHT_PROP_CUR_DEFENSE));
+        props.put("FIGHT_PROP_ELEMENT_MASTERY",owner.getFightProperty(FightProperty.FIGHT_PROP_ELEMENT_MASTERY));
+
+        var amountByCasterMaxHPRatio = action.amountByCasterMaxHPRatio.get(properties, 0);
+        var amountByCasterAttackRatio = action.amountByCasterAttackRatio.get(properties, 0);
+        var amountByCasterCurrentHPRatio = action.amountByCasterCurrentHPRatio.get(properties, 0);
+        var amountByTargetCurrentHPRatio = action.amountByTargetCurrentHPRatio.get(properties, 0);
+        var amountByTargetMaxHPRatio = action.amountByTargetMaxHPRatio.get(properties, 0);
 
         Grasscutter.getLogger().trace("amountByCasterMaxHPRatio: " + amountByCasterMaxHPRatio);
         Grasscutter.getLogger().trace("amountByCasterAttackRatio: " + amountByCasterAttackRatio);
