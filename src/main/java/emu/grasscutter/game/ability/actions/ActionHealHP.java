@@ -7,7 +7,6 @@ import emu.grasscutter.game.ability.Ability;
 import emu.grasscutter.game.entity.*;
 import emu.grasscutter.game.props.FightProperty;
 import it.unimi.dsi.fastutil.objects.Object2FloatMap;
-import it.unimi.dsi.fastutil.objects.Object2FloatOpenHashMap;
 
 @AbilityAction(AbilityModifierAction.Type.HealHP)
 public final class ActionHealHP extends AbilityActionHandler {
