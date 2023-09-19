@@ -90,7 +90,8 @@ public class EntityAvatar extends GameEntity {
 
     @Override
     public boolean isAlive() {
-        return this.getFightProperty(FightProperty.FIGHT_PROP_CUR_HP) > 0f;
+//        return this.getFightProperty(FightProperty.FIGHT_PROP_CUR_HP) > 0f;
+        return !this.isDead();
     }
 
     @Override
@@ -137,9 +138,17 @@ public class EntityAvatar extends GameEntity {
 
     @Override
     public float heal(float amount, boolean mute) {
-        // Do not heal character if they are dead
-        if (!this.isAlive()) {
+        // Do not heal character if they are dead.
+        var currentHp = this.getFightProperty(FightProperty.FIGHT_PROP_CUR_HP);
+        if (currentHp <= 0) {
             return 0f;
+        }
+
+        // Check if the character hasn't been marked as dead.
+        if (currentHp > 0 && this.isDead()) {
+
+            this.setDead(false);
+            mute = false;
         }
 
         float healed = super.heal(amount, mute);
