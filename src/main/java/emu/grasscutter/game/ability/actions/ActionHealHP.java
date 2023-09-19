@@ -6,6 +6,7 @@ import emu.grasscutter.data.binout.AbilityModifier.AbilityModifierAction;
 import emu.grasscutter.game.ability.Ability;
 import emu.grasscutter.game.entity.*;
 import emu.grasscutter.game.props.FightProperty;
+import it.unimi.dsi.fastutil.objects.Object2FloatOpenHashMap;
 
 @AbilityAction(AbilityModifierAction.Type.HealHP)
 public final class ActionHealHP extends AbilityActionHandler {
@@ -31,15 +32,18 @@ public final class ActionHealHP extends AbilityActionHandler {
 
         if (owner == null) return false;
 
-        ability
-                .getAbilitySpecials()
-                .forEach((k, v) -> Grasscutter.getLogger().trace(">>> {}: {}", k, v));
+        // Get all properties.
+        var properties = new Object2FloatOpenHashMap<String>();
+        // Add entity fight properties.
+        for (var property : FightProperty.values()) {
+            var name = property.name();
+            var value = owner.getFightProperty(property);
+            properties.put(name, value);
+        }
+        // Add ability properties.
+        properties.putAll(ability.getAbilitySpecials());
 
         // Calculate ratios from properties.
-                Object2FloatMap<String> props = ability.getAbilitySpecials();
-        props.put("FIGHT_PROP_CUR_DEFENSE",owner.getFightProperty(FightProperty.FIGHT_PROP_CUR_DEFENSE));
-        props.put("FIGHT_PROP_ELEMENT_MASTERY",owner.getFightProperty(FightProperty.FIGHT_PROP_ELEMENT_MASTERY));
-
         var amountByCasterMaxHPRatio = action.amountByCasterMaxHPRatio.get(properties, 0);
         var amountByCasterAttackRatio = action.amountByCasterAttackRatio.get(properties, 0);
         var amountByCasterCurrentHPRatio = action.amountByCasterCurrentHPRatio.get(properties, 0);
