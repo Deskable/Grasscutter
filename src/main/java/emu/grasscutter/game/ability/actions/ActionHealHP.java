@@ -37,21 +37,24 @@ public final class ActionHealHP extends AbilityActionHandler {
                 .forEach((k, v) -> Grasscutter.getLogger().trace(">>> {}: {}", k, v));
 
         Object2FloatMap<String> props = ability.getAbilitySpecials();
-        props.put("FIGHT_PROP_CUR_DEFENSE",owner.getFightProperty(FightProperty.FIGHT_PROP_CUR_DEFENSE));
-        props.put("FIGHT_PROP_ELEMENT_MASTERY",owner.getFightProperty(FightProperty.FIGHT_PROP_ELEMENT_MASTERY));
+        props.put(
+                "FIGHT_PROP_CUR_DEFENSE", owner.getFightProperty(FightProperty.FIGHT_PROP_CUR_DEFENSE));
+        props.put(
+                "FIGHT_PROP_ELEMENT_MASTERY",
+                owner.getFightProperty(FightProperty.FIGHT_PROP_ELEMENT_MASTERY));
 
-        var amountByCasterMaxHPRatio = action.amountByCasterMaxHPRatio.get(props,0);
-        var amountByCasterAttackRatio = action.amountByCasterAttackRatio.get(props,0);
-        var amountByCasterCurrentHPRatio = action.amountByCasterCurrentHPRatio.get(props,0);
-        var amountByTargetCurrentHPRatio = action.amountByTargetCurrentHPRatio.get(props,0);
-        var amountByTargetMaxHPRatio = action.amountByTargetMaxHPRatio.get(props,0);
-        var amountToRegenerate = action.amount.get(props,0);
+        var amountByCasterMaxHPRatio = action.amountByCasterMaxHPRatio.get(props, 0);
+        var amountByCasterAttackRatio = action.amountByCasterAttackRatio.get(props, 0);
+        var amountByCasterCurrentHPRatio = action.amountByCasterCurrentHPRatio.get(props, 0);
+        var amountByTargetCurrentHPRatio = action.amountByTargetCurrentHPRatio.get(props, 0);
+        var amountByTargetMaxHPRatio = action.amountByTargetMaxHPRatio.get(props, 0);
+        var amountToRegenerate = action.amount.get(props, 0);
 
-//        var amountByCasterMaxHPRatio = action.amountByCasterMaxHPRatio.get(ability);
-//        var amountByCasterAttackRatio = action.amountByCasterAttackRatio.get(ability);
-//        var amountByCasterCurrentHPRatio = action.amountByCasterCurrentHPRatio.get(ability);
-//        var amountByTargetCurrentHPRatio = action.amountByTargetCurrentHPRatio.get(ability);
-//        var amountByTargetMaxHPRatio = action.amountByTargetMaxHPRatio.get(ability);
+        //        var amountByCasterMaxHPRatio = action.amountByCasterMaxHPRatio.get(ability);
+        //        var amountByCasterAttackRatio = action.amountByCasterAttackRatio.get(ability);
+        //        var amountByCasterCurrentHPRatio = action.amountByCasterCurrentHPRatio.get(ability);
+        //        var amountByTargetCurrentHPRatio = action.amountByTargetCurrentHPRatio.get(ability);
+        //        var amountByTargetMaxHPRatio = action.amountByTargetMaxHPRatio.get(ability);
 
         Grasscutter.getLogger().trace("amountByCasterMaxHPRatio: " + amountByCasterMaxHPRatio);
         Grasscutter.getLogger().trace("amountByCasterAttackRatio: " + amountByCasterAttackRatio);
