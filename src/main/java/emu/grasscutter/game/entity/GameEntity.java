@@ -44,6 +44,8 @@ public abstract class GameEntity {
             new Int2ObjectOpenHashMap<>();
 
     @Getter private Map<String, Float> globalAbilityValues = new HashMap<>();
+    @Getter
+    protected boolean isDead = false;
 
     public GameEntity(Scene scene) {
         this.scene = scene;
@@ -172,10 +174,9 @@ public abstract class GameEntity {
         this.lastAttackType = attackType;
 
         // Check if dead
-        boolean isDead = false;
         if (this.getFightProperty(FightProperty.FIGHT_PROP_CUR_HP) <= 0f) {
             this.setFightProperty(FightProperty.FIGHT_PROP_CUR_HP, 0f);
-            isDead = true;
+            this.isDead = true;
         }
 
         this.runLuaCallbacks(event);
@@ -186,8 +187,10 @@ public abstract class GameEntity {
                         new PacketEntityFightPropUpdateNotify(this, FightProperty.FIGHT_PROP_CUR_HP));
 
         // Check if dead.
-        if (isDead) {
-            this.getScene().killEntity(this, killerId);
+        this.isDead = false;
+        if (this.getFightProperty(FightProperty.FIGHT_PROP_CUR_HP) <= 0f) {
+            this.setFightProperty(FightProperty.FIGHT_PROP_CUR_HP, 0f);
+            this.isDead = true;
         }
     }
 

@@ -90,7 +90,8 @@ public class EntityAvatar extends GameEntity {
 
     @Override
     public boolean isAlive() {
-        return this.getFightProperty(FightProperty.FIGHT_PROP_CUR_HP) > 0f;
+//        return this.getFightProperty(FightProperty.FIGHT_PROP_CUR_HP) > 0f;
+        return this.isDead;
     }
 
     @Override
@@ -137,24 +138,32 @@ public class EntityAvatar extends GameEntity {
 
     @Override
     public float heal(float amount, boolean mute) {
-        // Do not heal character if they are dead
-        if (!this.isAlive()) {
+        // Do not heal character if they are dead.
+        var currentHp = this.getFightProperty(FightProperty.FIGHT_PROP_CUR_HP);
+        if (currentHp <= 0) {
             return 0f;
         }
 
-        float healed = super.heal(amount, mute);
+        // Check if the character hasn't been marked as dead.
+        if (currentHp > 0 && this.isDead()) {
 
+//            this.setDead(false);
+            this.isDead = false;
+            mute = false;
+        }
+
+        float healed = super.heal(amount, mute);
         if (healed > 0f) {
             getScene()
-                    .broadcastPacket(
-                            new PacketEntityFightPropChangeReasonNotify(
-                                    this,
-                                    FightProperty.FIGHT_PROP_CUR_HP,
-                                    healed,
-                                    mute
-                                            ? PropChangeReason.PROP_CHANGE_REASON_NONE
-                                            : PropChangeReason.PROP_CHANGE_REASON_ABILITY,
-                                    ChangeHpReason.CHANGE_HP_REASON_ADD_ABILITY));
+                .broadcastPacket(
+                    new PacketEntityFightPropChangeReasonNotify(
+                        this,
+                        FightProperty.FIGHT_PROP_CUR_HP,
+                        healed,
+                        mute
+                            ? PropChangeReason.PROP_CHANGE_REASON_NONE
+                            : PropChangeReason.PROP_CHANGE_REASON_ABILITY,
+                        ChangeHpReason.CHANGE_HP_REASON_ADD_ABILITY));
         }
 
         return healed;
