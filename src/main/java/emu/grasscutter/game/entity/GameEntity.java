@@ -34,7 +34,8 @@ public abstract class GameEntity {
     @Getter @Setter private boolean lockHP;
 
     @Setter(AccessLevel.PROTECTED)
-    @Getter protected boolean isDead = false;
+    @Getter
+    protected boolean isDead = false;
 
     // Lua controller for specific actions
     @Getter @Setter private EntityController entityController;
@@ -160,7 +161,7 @@ public abstract class GameEntity {
 
         // Invoke entity damage event.
         EntityDamageEvent event =
-            new EntityDamageEvent(this, amount, attackType, this.getScene().getEntityById(killerId));
+                new EntityDamageEvent(this, amount, attackType, this.getScene().getEntityById(killerId));
         event.call();
         if (event.isCanceled()) {
             return; // If the event is canceled, do not damage the entity.
@@ -184,8 +185,8 @@ public abstract class GameEntity {
 
         // Packets
         this.getScene()
-            .broadcastPacket(
-                new PacketEntityFightPropUpdateNotify(this, FightProperty.FIGHT_PROP_CUR_HP));
+                .broadcastPacket(
+                        new PacketEntityFightPropUpdateNotify(this, FightProperty.FIGHT_PROP_CUR_HP));
 
         // Check if dead.
         if (this.isDead) {
