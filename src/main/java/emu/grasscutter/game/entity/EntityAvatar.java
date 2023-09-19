@@ -89,12 +89,6 @@ public class EntityAvatar extends GameEntity {
     }
 
     @Override
-    public boolean isAlive() {
-        //        return this.getFightProperty(FightProperty.FIGHT_PROP_CUR_HP) > 0f;
-        return !this.isDead;
-    }
-
-    @Override
     public Int2FloatMap getFightProperties() {
         return getAvatar().getFightProperties();
     }
@@ -146,9 +140,7 @@ public class EntityAvatar extends GameEntity {
 
         // Check if the character hasn't been marked as dead.
         if (currentHp > 0 && this.isDead()) {
-
-            //            this.setDead(false);
-            this.isDead = false;
+            this.setDead(false);
             mute = false;
         }
 

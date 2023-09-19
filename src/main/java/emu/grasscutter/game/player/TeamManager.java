@@ -800,10 +800,6 @@ public final class TeamManager extends BasePlayerDataManager {
         EntityAvatar deadAvatar = this.getCurrentAvatarEntity();
         if (deadAvatar == null || deadAvatar.getId() != dieGuid) return;
 
-        //        if (deadAvatar.isAlive() || deadAvatar.getId() != dieGuid) {
-        //            return;
-        //        }
-
         PlayerDieType dieType = deadAvatar.getKilledType();
         int killedBy = deadAvatar.getKilledBy();
 

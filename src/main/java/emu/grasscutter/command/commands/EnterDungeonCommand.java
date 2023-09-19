@@ -33,7 +33,7 @@ public final class EnterDungeonCommand implements CommandHandler {
                     targetPlayer
                             .getServer()
                             .getDungeonSystem()
-                            .enterDungeon(targetPlayer.getSession().getPlayer(), 0, dungeonId, true);
+                            .enterDungeon(targetPlayer.getSession().getPlayer(), 0, dungeonId);
 
             if (!result) {
                 CommandHandler.sendMessage(

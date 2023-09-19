@@ -34,8 +34,7 @@ public abstract class GameEntity {
     @Getter @Setter private boolean lockHP;
 
     @Setter(AccessLevel.PROTECTED)
-    @Getter
-    private boolean isDead = false;
+    @Getter private boolean isDead = false;
 
     // Lua controller for specific actions
     @Getter @Setter private EntityController entityController;
@@ -48,7 +47,6 @@ public abstract class GameEntity {
             new Int2ObjectOpenHashMap<>();
 
     @Getter private final Map<String, Float> globalAbilityValues = new HashMap<>();
-    @Getter protected boolean isDead = false;
 
     public GameEntity(Scene scene) {
         this.scene = scene;

@@ -289,7 +289,7 @@ public final class DungeonManager {
                 player
                         .getServer()
                         .getDungeonSystem()
-                        .enterDungeon(player, 0, this.dungeonData.getPassJumpDungeon(), false);
+                        .enterDungeon(player, 0, this.dungeonData.getPassJumpDungeon());
             }
         }
     }

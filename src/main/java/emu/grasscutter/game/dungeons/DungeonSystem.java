@@ -88,7 +88,7 @@ public final class DungeonSystem extends BaseGameSystem {
         return handler.execute(condition, params);
     }
 
-    public boolean enterDungeon(Player player, int pointId, int dungeonId, boolean savePrevious) {
+    public boolean enterDungeon(Player player, int pointId, int dungeonId) {
         DungeonData data = GameData.getDungeonDataMap().get(dungeonId);
 
         if (data == null) {
@@ -103,7 +103,7 @@ public final class DungeonSystem extends BaseGameSystem {
 
         var sceneId = data.getSceneId();
         var scene = player.getScene();
-        if (savePrevious) scene.setPrevScene(scene.getId());
+        scene.setPrevScene(sceneId);
 
         if (player.getWorld().transferPlayerToScene(player, sceneId, data)) {
             scene = player.getScene();
@@ -111,7 +111,7 @@ public final class DungeonSystem extends BaseGameSystem {
             scene.addDungeonSettleObserver(basicDungeonSettleObserver);
         }
 
-        if (savePrevious) scene.setPrevScenePoint(pointId);
+        scene.setPrevScenePoint(pointId);
         return true;
     }
 

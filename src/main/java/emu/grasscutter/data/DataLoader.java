@@ -1,6 +1,8 @@
 package emu.grasscutter.data;
 
 import emu.grasscutter.Grasscutter;
+import emu.grasscutter.server.http.handlers.GachaHandler;
+import emu.grasscutter.tools.Tools;
 import emu.grasscutter.utils.*;
 import java.io.*;
 import java.nio.file.*;
@@ -112,6 +114,8 @@ public class DataLoader {
         } catch (Exception e) {
             Grasscutter.getLogger().error("An error occurred while trying to check the data folder.", e);
         }
+
+        generateGachaMappings();
     }
 
     private static void checkAndCopyData(String name) {
@@ -125,6 +129,18 @@ public class DataLoader {
 
             Grasscutter.getLogger().debug("Creating default '" + name + "' data");
             FileUtils.copyResource("/defaults/data/" + name, filePath.toString());
+        }
+    }
+
+    private static void generateGachaMappings() {
+        var path = GachaHandler.getGachaMappingsPath();
+        if (!Files.exists(path)) {
+            try {
+                Grasscutter.getLogger().debug("Creating default '" + path + "' data");
+                Tools.createGachaMappings(path);
+            } catch (Exception exception) {
+                Grasscutter.getLogger().warn("Failed to create gacha mappings. \n" + exception);
+            }
         }
     }
 }
