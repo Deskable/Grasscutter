@@ -263,7 +263,7 @@ public class AbilityModifier implements Serializable {
             TurnDirectionToPos,
             UpdateReactionDamage,
             UseSkillEliteSet,
-            WidgetSkillStart;
+            WidgetSkillStart
         }
 
         @SerializedName("$type")
@@ -272,19 +272,19 @@ public class AbilityModifier implements Serializable {
         public String target;
 
         @SerializedName(
-                value = "amount",
-                alternate = {"PDLLIFICICJ", "cdRatio"})
+            value = "amount",
+            alternate = {"LNFMOCKIAGK", "PDLLIFICICJ", "cdRatio"})
         public DynamicFloat amount = DynamicFloat.ZERO;
 
-        @SerializedName(value = "amountByTargetCurrentHPRatio")
+        @SerializedName(value = "GMFELAKANEF")
         public DynamicFloat amountByCasterAttackRatio = DynamicFloat.ZERO;
 
         @SerializedName(value = "unused")
         public DynamicFloat amountByCasterCurrentHPRatio = DynamicFloat.ZERO;
 
         @SerializedName(
-                value = "unknown",
-                alternate = {"HFNJHOGGFKB", "GEJGGCIOLKN"})
+            value = "PKPBLCNMPIG",
+            alternate = {"HFNJHOGGFKB", "GEJGGCIOLKN"})
         public DynamicFloat amountByCasterMaxHPRatio = DynamicFloat.ZERO;
 
         public DynamicFloat amountByGetDamage = DynamicFloat.ZERO;
@@ -292,7 +292,7 @@ public class AbilityModifier implements Serializable {
         @SerializedName(value = "amountByTargetMaxHPRatio")
         public DynamicFloat amountByTargetCurrentHPRatio = DynamicFloat.ZERO;
 
-        @SerializedName(value = "amountByCasterMaxHPRatio")
+        @SerializedName(value = "GGLMMJHNGMO")
         public DynamicFloat amountByTargetMaxHPRatio = DynamicFloat.ZERO;
 
         public DynamicFloat limboByTargetMaxHPRatio = DynamicFloat.ZERO;

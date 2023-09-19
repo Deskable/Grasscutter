@@ -6,6 +6,7 @@ import emu.grasscutter.data.binout.AbilityModifier.AbilityModifierAction;
 import emu.grasscutter.game.ability.Ability;
 import emu.grasscutter.game.entity.*;
 import emu.grasscutter.game.props.FightProperty;
+import it.unimi.dsi.fastutil.objects.Object2FloatMap;
 
 @AbilityAction(AbilityModifierAction.Type.HealHP)
 public final class ActionHealHP extends AbilityActionHandler {
@@ -35,11 +36,22 @@ public final class ActionHealHP extends AbilityActionHandler {
                 .getAbilitySpecials()
                 .forEach((k, v) -> Grasscutter.getLogger().trace(">>> {}: {}", k, v));
 
-        var amountByCasterMaxHPRatio = action.amountByCasterMaxHPRatio.get(ability);
-        var amountByCasterAttackRatio = action.amountByCasterAttackRatio.get(ability);
-        var amountByCasterCurrentHPRatio = action.amountByCasterCurrentHPRatio.get(ability);
-        var amountByTargetCurrentHPRatio = action.amountByTargetCurrentHPRatio.get(ability);
-        var amountByTargetMaxHPRatio = action.amountByTargetMaxHPRatio.get(ability);
+        Object2FloatMap<String> props = ability.getAbilitySpecials();
+        props.put("FIGHT_PROP_CUR_DEFENSE",owner.getFightProperty(FightProperty.FIGHT_PROP_CUR_DEFENSE));
+        props.put("FIGHT_PROP_ELEMENT_MASTERY",owner.getFightProperty(FightProperty.FIGHT_PROP_ELEMENT_MASTERY));
+
+        var amountByCasterMaxHPRatio = action.amountByCasterMaxHPRatio.get(props,0);
+        var amountByCasterAttackRatio = action.amountByCasterAttackRatio.get(props,0);
+        var amountByCasterCurrentHPRatio = action.amountByCasterCurrentHPRatio.get(props,0);
+        var amountByTargetCurrentHPRatio = action.amountByTargetCurrentHPRatio.get(props,0);
+        var amountByTargetMaxHPRatio = action.amountByTargetMaxHPRatio.get(props,0);
+        var amountToRegenerate = action.amount.get(props,0);
+
+//        var amountByCasterMaxHPRatio = action.amountByCasterMaxHPRatio.get(ability);
+//        var amountByCasterAttackRatio = action.amountByCasterAttackRatio.get(ability);
+//        var amountByCasterCurrentHPRatio = action.amountByCasterCurrentHPRatio.get(ability);
+//        var amountByTargetCurrentHPRatio = action.amountByTargetCurrentHPRatio.get(ability);
+//        var amountByTargetMaxHPRatio = action.amountByTargetMaxHPRatio.get(ability);
 
         Grasscutter.getLogger().trace("amountByCasterMaxHPRatio: " + amountByCasterMaxHPRatio);
         Grasscutter.getLogger().trace("amountByCasterAttackRatio: " + amountByCasterAttackRatio);
@@ -47,7 +59,7 @@ public final class ActionHealHP extends AbilityActionHandler {
         Grasscutter.getLogger().trace("amountByTargetCurrentHPRatio: " + amountByTargetCurrentHPRatio);
         Grasscutter.getLogger().trace("amountByTargetMaxHPRatio: " + amountByTargetMaxHPRatio);
 
-        var amountToRegenerate = action.amount.get(ability);
+        amountToRegenerate = action.amount.get(ability);
         Grasscutter.getLogger().trace("Base amount: " + amountToRegenerate);
 
         amountToRegenerate +=
