@@ -188,10 +188,8 @@ public abstract class GameEntity {
                         new PacketEntityFightPropUpdateNotify(this, FightProperty.FIGHT_PROP_CUR_HP));
 
         // Check if dead.
-        this.isDead = false;
-        if (this.getFightProperty(FightProperty.FIGHT_PROP_CUR_HP) <= 0f) {
-            this.setFightProperty(FightProperty.FIGHT_PROP_CUR_HP, 0f);
-            this.isDead = true;
+        if (this.isDead) {
+            this.getScene().killEntity(this, killerId);
         }
     }
 
