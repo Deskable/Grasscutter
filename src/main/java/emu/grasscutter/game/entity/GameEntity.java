@@ -44,8 +44,7 @@ public abstract class GameEntity {
             new Int2ObjectOpenHashMap<>();
 
     @Getter private final Map<String, Float> globalAbilityValues = new HashMap<>();
-    @Getter
-    protected boolean isDead = false;
+    @Getter protected boolean isDead = false;
 
     public GameEntity(Scene scene) {
         this.scene = scene;
@@ -159,7 +158,7 @@ public abstract class GameEntity {
 
         // Invoke entity damage event.
         EntityDamageEvent event =
-                new EntityDamageEvent(this, amount, attackType, this.getScene().getEntityById(killerId));
+            new EntityDamageEvent(this, amount, attackType, this.getScene().getEntityById(killerId));
         event.call();
         if (event.isCanceled()) {
             return; // If the event is canceled, do not damage the entity.
@@ -174,7 +173,6 @@ public abstract class GameEntity {
         this.lastAttackType = attackType;
 
         // Check if dead
-        this.isDead = false;
         if (this.getFightProperty(FightProperty.FIGHT_PROP_CUR_HP) <= 0f) {
             this.setFightProperty(FightProperty.FIGHT_PROP_CUR_HP, 0f);
             this.isDead = true;
@@ -184,8 +182,8 @@ public abstract class GameEntity {
 
         // Packets
         this.getScene()
-                .broadcastPacket(
-                        new PacketEntityFightPropUpdateNotify(this, FightProperty.FIGHT_PROP_CUR_HP));
+            .broadcastPacket(
+                new PacketEntityFightPropUpdateNotify(this, FightProperty.FIGHT_PROP_CUR_HP));
 
         // Check if dead.
         if (this.isDead) {

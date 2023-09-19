@@ -90,8 +90,8 @@ public class EntityAvatar extends GameEntity {
 
     @Override
     public boolean isAlive() {
-//        return this.getFightProperty(FightProperty.FIGHT_PROP_CUR_HP) > 0f;
-        return this.isDead;
+        //        return this.getFightProperty(FightProperty.FIGHT_PROP_CUR_HP) > 0f;
+        return !this.isDead;
     }
 
     @Override
@@ -147,7 +147,7 @@ public class EntityAvatar extends GameEntity {
         // Check if the character hasn't been marked as dead.
         if (currentHp > 0 && this.isDead()) {
 
-//            this.setDead(false);
+            //            this.setDead(false);
             this.isDead = false;
             mute = false;
         }
@@ -155,15 +155,15 @@ public class EntityAvatar extends GameEntity {
         float healed = super.heal(amount, mute);
         if (healed > 0f) {
             getScene()
-                .broadcastPacket(
-                    new PacketEntityFightPropChangeReasonNotify(
-                        this,
-                        FightProperty.FIGHT_PROP_CUR_HP,
-                        healed,
-                        mute
-                            ? PropChangeReason.PROP_CHANGE_REASON_NONE
-                            : PropChangeReason.PROP_CHANGE_REASON_ABILITY,
-                        ChangeHpReason.CHANGE_HP_REASON_ADD_ABILITY));
+                    .broadcastPacket(
+                            new PacketEntityFightPropChangeReasonNotify(
+                                    this,
+                                    FightProperty.FIGHT_PROP_CUR_HP,
+                                    healed,
+                                    mute
+                                            ? PropChangeReason.PROP_CHANGE_REASON_NONE
+                                            : PropChangeReason.PROP_CHANGE_REASON_ABILITY,
+                                    ChangeHpReason.CHANGE_HP_REASON_ADD_ABILITY));
         }
 
         return healed;
